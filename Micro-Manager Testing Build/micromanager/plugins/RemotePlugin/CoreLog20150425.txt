@@ -1,0 +1,6 @@
+2015-04-25T01:35:56.158276 p:136 t:5656 [LOG] -------->>
+2015-04-25T01:35:56.160278 p:136 t:5656 [LOG] Core session started by benja_000 on MINE
+2015-04-25T01:35:56.160278 p:136 t:5656 [LOG] Debug logging disabled
+2015-04-25T01:35:56.162279 p:136 t:5656 [LOG] Device DCam loaded from DemoCamera and labeled as Camera
+2015-04-25T01:35:56.162279 p:136 t:5656 [LOG] Device Camera message: Parent Hub not defined.
+2015-04-25T01:35:56.163280 p:136 t:5656 [LOG] Device Camera initialized.
