@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Sentinel</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="pref_IP">Host IP</string>
+
+    <string name="lut">LUT</string>
+
+    <string-array name="LUT_Tables">
+        <item>None</item>
+        <item>Fire</item>
+        <item>Ice</item>
+        <item>Red</item>
+        <item>Green</item>
+        <item>Blue</item>
+        <item>Yellow</item>
+        <item>Magenta</item>
+        <item>Spectrum</item>
+        <item>Red/Green</item>
+        <item>Cyan</item>
+        <item>Grays</item>
+    </string-array>
+</resources>
