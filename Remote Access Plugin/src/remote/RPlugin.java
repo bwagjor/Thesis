@@ -36,16 +36,10 @@ public class RPlugin extends Thread implements MMPlugin {
 	private CommsWindow frame;
 	@Override
 	public void setApp(ScriptInterface app) {
+		//Initiate the core and application objects
 		app_ = app;
 		core_ = app.getMMCore();
-		// TCPServer server = new TCPServer(null,core_);
-		// opens the window where the messages will be received and sent
-		/*
-		 * CommsWindow frame = new CommsWindow();
-		 * frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); frame.pack();
-		 * frame.setVisible(true);
-		 */
-		//tute();
+		//Open the GUI
 		CommsWindow frame = new CommsWindow(app_);
 		System.out.println("HERE IS ME SETING THE APP");
 	/*	try {
@@ -63,10 +57,11 @@ public class RPlugin extends Thread implements MMPlugin {
 
 	@Override
 	public void show() {
-		mScope = JOptionPane.showConfirmDialog(null,
+		//Originally to be used for selection between multi user streaming and single user control
+		/*mScope = JOptionPane.showConfirmDialog(null,
 				"Welcome To The Remote Access Server for Micromanager and MicroView UQ", "Remote Access",
 				JOptionPane.YES_NO_OPTION);
-		//ImageTCPServer server = new ImageTCPServer(null, core_);
+		//ImageTCPServer server = new ImageTCPServer(null, core_);*/
 	}
 
 	@Override
@@ -99,7 +94,7 @@ public class RPlugin extends Thread implements MMPlugin {
 
 	}
 
-
+	//Depreciated class used for testing early camera communication
 	public void tute() {
 		try {
 			core_.loadDevice("TCamera", "ProgRes", "Jenoptik-ProgRes");
@@ -148,9 +143,9 @@ public class RPlugin extends Thread implements MMPlugin {
 
 	}
 
-	/**
-	 * Method to convert a stream into a byte array
-	 */
+	
+	 // Method to convert a stream into a byte array
+	 
 	public static byte[] readExactly(InputStream input, int size) throws IOException {
 		byte[] data = new byte[size];
 		int index = 0;
