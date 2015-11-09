@@ -51,7 +51,7 @@ public class ImageTCPServer extends Thread {
 	public ImageTCPServer(OnMessageReceived messageListener, ScriptInterface app_) throws Exception {
 		this.messageListener = messageListener;
 		this.app_ = app_;
-	    core_ = app_.getMMCore();
+	    	core_ = app_.getMMCore();
 	   
 	}
 
@@ -66,8 +66,8 @@ public class ImageTCPServer extends Thread {
 			// come in over the network.
 			ServerSocket serverSocket = new ServerSocket(SERVERPORT);
 			System.out.println("Wating for new client");
-			// create client socket... the method accept() listens for a
-			// connection to be made to this socket and accepts it.
+			// a new server socket has been created
+			// waiting for connection to be made to this socket.
 			Socket client = serverSocket.accept();
 			System.out.println("New Client Found");
 			
@@ -150,9 +150,7 @@ public class ImageTCPServer extends Thread {
 		}
 	}
 
-	// Declare the interface. The method messageReceived(String message) will
-	// must be implemented in the ServerBoard
-	// class at on startServer button click
+	// Declare the interface. 
 	public interface OnMessageReceived {
 		public void messageReceived(String message);
 	}
