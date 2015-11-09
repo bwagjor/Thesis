@@ -9,8 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Simple demo that uses java.util.Timer to schedule a task to execute once 5
- * seconds have passed.
+ * Class used to track the time since the last image was requested by a Sentinel client
  */
 
 public class SocketTimer {
