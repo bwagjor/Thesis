@@ -1,9 +1,6 @@
-package remote;
+package archive;
 
 import javax.swing.*;
-
-import mmcorej.CMMCore;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,25 +8,23 @@ import java.net.Socket;
 /**
  * The class extends the Thread class so we can receive and send messages at the same time
  */
-public class TCPServer extends Thread {
+public class ATCPServer extends Thread {
 
     public static final int SERVERPORT = 100;
     private boolean running = false;
     private PrintWriter mOut;
     private OnMessageReceived messageListener;
-    private RPlugin plug;
-    private Imaging image;
-    private CMMCore core_;
+    private AImaging image;
     
 
     public static void main(String[] args) {
 
         //opens the window where the messages will be received and sent
-        CommsWindow frame = new CommsWindow();
+        ACommsWindow frame = new ACommsWindow();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-       // image = new Imaging(core_);
+        image = new AImaging();
 
     }
 
@@ -37,24 +32,8 @@ public class TCPServer extends Thread {
      * Constructor of the class
      * @param messageListener listens for the messages
      */
-    public TCPServer(OnMessageReceived messageListener, CMMCore core_) {
+    public ATCPServer(OnMessageReceived messageListener) {
         this.messageListener = messageListener;
-        this.core_ = core_;
-        image = new Imaging(core_);
-        CommsWindow frame = new CommsWindow();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-        System.out.println("RECEIVED!!");
-    }
-    
-    /**
-     * Constructor of the class
-     * @param messageListener listens for the messages
-     */
-    public TCPServer(OnMessageReceived messageListener) {
-        this.messageListener = messageListener;
-       
 ;
         System.out.println("RECEIVED");
     }
@@ -102,18 +81,7 @@ public class TCPServer extends Thread {
                     if (message != null && messageListener != null) {
                         //call the method messageReceived from ServerBoard class
                         messageListener.messageReceived(message);
-                        core_ = new CMMCore();
-                        core_.loadDevice("Camera", "DemoCamera", "DCam");
-                        core_.initializeAllDevices();
-                      
-                      
-                      
-                        String info = core_.getVersionInfo();
-                        System.out.println(info);
-                        image = new Imaging(core_);
-                        if(image.capture2()) System.out.println("IMAGE SAVED");
-                        else
-                        System.out.println("FAILED");
+                        System.out.println("Trying To IMAGE");
                 
                     }
                 }

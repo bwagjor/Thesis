@@ -35,9 +35,9 @@ import mmcorej.CMMCore;
 import org.micromanager.api.MMPlugin;
 import org.micromanager.api.ScriptInterface;
 
-import remote.TCPServer.OnMessageReceived;
+import archive.TCPServer.OnMessageReceived;
 
-public class RPlugin extends Thread implements MMPlugin {
+public class ARPlugin extends Thread implements MMPlugin {
 	public static final String menuName = "Remote Access";
 	public static final String description = "MicroView Client";
 	public static final int SERVERPORT = 100;
@@ -61,7 +61,7 @@ public class RPlugin extends Thread implements MMPlugin {
 		app_ = app;
 		core_ = app.getMMCore();
 		// opens the window where the messages will be received and sent
-		CommsWindow frame = new CommsWindow();
+		ACommsWindow frame = new ACommsWindow();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);

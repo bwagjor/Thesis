@@ -1,4 +1,4 @@
-package remote;
+package archive;
 
 import mmcorej.CMMCore;
 

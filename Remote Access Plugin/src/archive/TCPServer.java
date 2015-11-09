@@ -1,6 +1,12 @@
 package archive;
 
 import javax.swing.*;
+
+import mmcorej.CMMCore;
+import remote.CommsWindow;
+import remote.Imaging;
+import remote.RPlugin;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,7 +20,9 @@ public class TCPServer extends Thread {
     private boolean running = false;
     private PrintWriter mOut;
     private OnMessageReceived messageListener;
+    private RPlugin plug;
     private Imaging image;
+    private CMMCore core_;
     
 
     public static void main(String[] args) {
@@ -24,7 +32,7 @@ public class TCPServer extends Thread {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        image = new Imaging();
+       // image = new Imaging(core_);
 
     }
 
@@ -32,8 +40,24 @@ public class TCPServer extends Thread {
      * Constructor of the class
      * @param messageListener listens for the messages
      */
+    public TCPServer(OnMessageReceived messageListener, CMMCore core_) {
+        this.messageListener = messageListener;
+        this.core_ = core_;
+        image = new Imaging(core_);
+        CommsWindow frame = new CommsWindow();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+        System.out.println("RECEIVED!!");
+    }
+    
+    /**
+     * Constructor of the class
+     * @param messageListener listens for the messages
+     */
     public TCPServer(OnMessageReceived messageListener) {
         this.messageListener = messageListener;
+       
 ;
         System.out.println("RECEIVED");
     }
@@ -60,7 +84,7 @@ public class TCPServer extends Thread {
 
             //create a server socket. A server socket waits for requests to come in over the network.
             ServerSocket serverSocket = new ServerSocket(SERVERPORT);
-
+            System.out.println("Waiting to find client");
             //create client socket... the method accept() listens for a connection to be made to this socket and accepts it.
             Socket client = serverSocket.accept();
             System.out.println("S: Receiving... this is it");
@@ -81,7 +105,19 @@ public class TCPServer extends Thread {
                     if (message != null && messageListener != null) {
                         //call the method messageReceived from ServerBoard class
                         messageListener.messageReceived(message);
-                        System.out.println("Trying To IMAGE");
+                        System.loadLibrary("MMCoreJ_wrap");
+                        core_ = new CMMCore();
+                        core_.loadDevice("TCamera", "DemoCamera", "DCam");
+                        core_.initializeAllDevices();
+            			core_.setExposure(50);
+
+                        image = new Imaging(core_);
+                        if (message.equals("high exposure")) image.CaptureImageE();
+                        else image.CaptureImage();
+                        /*image.capture1();
+                        if(image.capture2()) System.out.println("IMAGE SAVED");
+                        else
+                        System.out.println("FAILED");*/
                 
                     }
                 }

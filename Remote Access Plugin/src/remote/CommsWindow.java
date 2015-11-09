@@ -2,6 +2,8 @@ package remote;
 
 import javax.swing.*;
 
+import org.micromanager.api.ScriptInterface;
+
 import mmcorej.CMMCore;
 
 import java.awt.*;
@@ -10,12 +12,12 @@ import java.awt.event.ActionListener;
 
 public class CommsWindow extends JFrame {
     private JTextArea messagesArea;
-    private JButton sendButton,startServer;
-    private JTextField message,ip;
-    private TCPServer mServer;
+    private JButton startServer;
+    private JScrollPane scroll;
+    private ImageTCPServer mServer;
 
 
-    public CommsWindow() {
+    public CommsWindow(final ScriptInterface app_) {
 
         super("Remote Access Server - Commands History");
   
@@ -24,25 +26,10 @@ public class CommsWindow extends JFrame {
 
         //here we will have the text messages screen
         messagesArea = new JTextArea();
-        messagesArea.setColumns(30);
-        messagesArea.setRows(10);
+       // messagesArea.setColumns(30);
+       // messagesArea.setRows(10);
         messagesArea.setEditable(false);
-
-        sendButton = new JButton("Send");
-        sendButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // get the message from the text view
-                String messageText = message.getText();
-                // add message to the message area
-                messagesArea.append("\n" + messageText);
-                // send the message to the client
-                mServer.sendMessage(messageText);
-                // clear text
-                message.setText("");
-            }
-        });
-
+        scroll = new JScrollPane(messagesArea);
         startServer = new JButton("Start");
         startServer.addActionListener(new ActionListener() {
             @Override
@@ -51,22 +38,27 @@ public class CommsWindow extends JFrame {
                 startServer.setEnabled(false);
 
                 //creates the object OnMessageReceived asked by the TCPServer constructor
-                mServer = new TCPServer(new TCPServer.OnMessageReceived() {
-                    @Override
-                    //this method declared in the interface from TCPServer class is implemented here
-                    //this method is actually a callback method, because it will run every time when it will be called from
-                    //TCPServer class (at while)
-                    public void messageReceived(String message) {
-                        messagesArea.append("\n "+message);
-                    }
-                });
+                try {
+					mServer = new ImageTCPServer(new ImageTCPServer.OnMessageReceived() {
+					    @Override
+					    //this method declared in the interface from TCPServer class is implemented here
+					    //this method is actually a callback method, because it will run every time when it will be called from
+					    //TCPServer class (at while)
+					    public void messageReceived(String message) {
+					        messagesArea.append("\n "+message);
+					    }
+					}, app_);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 mServer.start();
-
+                
             }
         });
 
         //add the buttons and the text fields to the panel
-        panelFields.add(messagesArea);
+        panelFields.add(scroll);
         panelFields.add(startServer);
 
 

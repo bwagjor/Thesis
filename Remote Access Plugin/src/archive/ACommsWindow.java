@@ -5,13 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CommsWindow extends JFrame {
+public class ACommsWindow extends JFrame {
     private JTextArea messagesArea;
     private JButton sendButton,startServer;
     private JTextField message,ip;
-    private TCPServer mServer;
+    private ATCPServer mServer;
 
-    public CommsWindow() {
+    public ACommsWindow() {
 
         super("Remote Access Server - Commands History");
 
@@ -47,7 +47,7 @@ public class CommsWindow extends JFrame {
                 startServer.setEnabled(false);
 
                 //creates the object OnMessageReceived asked by the TCPServer constructor
-                mServer = new TCPServer(new TCPServer.OnMessageReceived() {
+                mServer = new ATCPServer(new ATCPServer.OnMessageReceived() {
                     @Override
                     //this method declared in the interface from TCPServer class is implemented here
                     //this method is actually a callback method, because it will run every time when it will be called from

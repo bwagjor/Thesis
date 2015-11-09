@@ -1,4 +1,4 @@
-package remote;
+package archive;
 
 import javax.swing.JPanel;
 
