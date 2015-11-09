@@ -16,6 +16,8 @@ public class CommsWindow extends JFrame {
     private JScrollPane scroll;
     private ImageTCPServer mServer;
 
+	//The simple GUI displayed to users upon opening the Remote Access plugin
+	//Press start to begin Server
 
     public CommsWindow(final ScriptInterface app_) {
 
@@ -26,9 +28,8 @@ public class CommsWindow extends JFrame {
 
         //here we will have the text messages screen
         messagesArea = new JTextArea();
-       // messagesArea.setColumns(30);
-       // messagesArea.setRows(10);
         messagesArea.setEditable(false);
+        //Make history log scrollable
         scroll = new JScrollPane(messagesArea);
         startServer = new JButton("Start");
         startServer.addActionListener(new ActionListener() {
@@ -41,9 +42,7 @@ public class CommsWindow extends JFrame {
                 try {
 					mServer = new ImageTCPServer(new ImageTCPServer.OnMessageReceived() {
 					    @Override
-					    //this method declared in the interface from TCPServer class is implemented here
-					    //this method is actually a callback method, because it will run every time when it will be called from
-					    //TCPServer class (at while)
+						//Append received images to history log
 					    public void messageReceived(String message) {
 					        messagesArea.append("\n "+message);
 					    }
