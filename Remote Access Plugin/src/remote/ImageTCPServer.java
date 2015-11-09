@@ -52,28 +52,9 @@ public class ImageTCPServer extends Thread {
 		this.messageListener = messageListener;
 		this.app_ = app_;
 	    core_ = app_.getMMCore();
-	   // System.out.println(core_.getCameraDevice());
-		//this.core_ = core_;
-		//image = new Imaging(core_);
-		/*CommsWindow frame = new CommsWindow(core_);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
-		System.out.println("Setup JFrame");*/
+	   
 	}
 
-/*	*//**
-	 * Constructor of the class
-	 * 
-	 * @param messageListener
-	 *            listens for the messages
-	 *//*
-	public ImageTCPServer(OnMessageReceived messageListener) {
-		this.messageListener = messageListener;
-
-		
-		System.out.println("Constructor - message");
-	}*/
 
 	@Override
 	public void run() {
@@ -95,9 +76,7 @@ public class ImageTCPServer extends Thread {
 				// read the message received from client
 				BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 				
-				// in this while we wait to receive messages from client (it's
-				// an infinite loop)
-				// this while it's like a listener for messages
+				//Cycles through this while loop while listening for messages from the client
 				//SocketTimer st = new SocketTimer(serverSocket,client,this);
 				//if (this.isInterrupted()) throw new Exception("Timeout");
 				while (in.read()!=-1) {
