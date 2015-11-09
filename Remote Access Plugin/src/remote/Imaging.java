@@ -22,7 +22,7 @@ public class Imaging {
 	public Imaging(CMMCore core_) {
 		this.core_ = core_;
 	}
-
+	//Used to test camera communications prior to socket connection establishment
 	public boolean CaptureImage() throws Exception {
 		core_.loadDevice("Camera", "DemoCamera", "DCam");
 		core_.initializeAllDevices();
@@ -54,7 +54,8 @@ public class Imaging {
 		return fs.saveAsJpeg("C:\\Users\\benja_000\\Desktop\\New folder\\test.jpg");
 
 	}
-
+	//Take parameters in from Sentinel applications and capture image.
+	//Convert and return as BufferedImage
 	public BufferedImage CaptureBufferedImage(String message) throws Exception {
 		String[] commands = message.split(",");
 
@@ -126,7 +127,7 @@ public class Imaging {
 		return fs.saveAsJpeg("C:\\Users\\benja_000\\Desktop\\New folder\\test.jpg");
 
 	}
-
+	//Depreciated Imaging Class
 	public boolean capture1() {
 		try {
 			core_.snapImage();
@@ -187,7 +188,7 @@ public class Imaging {
 		return true;
 
 	}
-
+	//Used for testing live vs dead CMMCore Objects
 	public boolean capture2() {
 		try {
 			core_.snapImage();
